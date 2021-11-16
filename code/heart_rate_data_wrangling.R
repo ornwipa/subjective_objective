@@ -63,6 +63,23 @@ hrr <- left_join(left_join(hr_work,
 summary(hrr$pHRR)
 #    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
 # 0.02292 0.16553 0.29725 0.31610 0.42997 0.94577 
-hist(hrr$pHRR)
+
+hist(hrr$pHRR, freq = FALSE, 
+     main = "Histogram: Percent Heart Rate Reserve",
+     xlab = "%HRR")
 ggqqplot(hrr$pHRR)
 shapiro.test(hrr$pHRR) # W = 0.95614, p-value = 0.01344
+
+hist(sqrt(hrr$pHRR), freq = FALSE,
+     main = "Histogram: Square-root-transformed %HRR",
+     xlab = "Square root of %HRR")
+ggqqplot(sqrt(hrr$pHRR))
+shapiro.test(sqrt(hrr$pHRR)) # W = 0.98375, p-value = 0.4801
+
+# Evaluate by "Activity"(work method: ground, ladder, platform)
+ggqqplot(hrr, x = "pHRR",
+         color = "Activity", 
+         palette = c("#1B9E77", "#D95F02", "#7570B3"))
+shapiro.test(hrr$pHRR[hrr$Activity=="Ground"]) # W = 0.91921, p-value = 0.0561
+shapiro.test(hrr$pHRR[hrr$Activity=="Ladder"]) # W = 0.97089, p-value = 0.689
+shapiro.test(hrr$pHRR[hrr$Activity=="Platform"]) # W = 0.90023, p-value = 0.02177
