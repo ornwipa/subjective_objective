@@ -83,3 +83,7 @@ ggqqplot(hrr, x = "pHRR",
 shapiro.test(hrr$pHRR[hrr$Activity=="Ground"]) # W = 0.91921, p-value = 0.0561
 shapiro.test(hrr$pHRR[hrr$Activity=="Ladder"]) # W = 0.97089, p-value = 0.689
 shapiro.test(hrr$pHRR[hrr$Activity=="Platform"]) # W = 0.90023, p-value = 0.02177
+shapiro.test(sqrt(hrr$pHRR[hrr$Activity=="Ground"])) # W = 0.89785, p-value = 0.01938
+shapiro.test(sqrt(hrr$pHRR[hrr$Activity=="Ladder"])) # W = 0.96376, p-value = 0.5184
+shapiro.test(sqrt(hrr$pHRR[hrr$Activity=="Platform"])) # W = 0.92549, p-value = 0.07732
+             

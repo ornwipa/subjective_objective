@@ -42,6 +42,19 @@ ggqqplot(effort_overall$OmniRPEdiff)
 shapiro.test(effort_overall$BorgRPEdiff) # W = 0.94719, p-value = 0.004427
 shapiro.test(effort_overall$OmniRPEdiff) # W = 0.92331, p-value = 0.0003018
 
+shapiro.test(effort_overall$BorgRPEdiff[effort_overall$Work.Period=="Time1_after90minWork"])
+# W = 0.93282, p-value = 0.1127
+shapiro.test(effort_overall$BorgRPEdiff[effort_overall$Work.Period=="Time2_after30minBreak"])
+# W = 0.88968, p-value = 0.01309
+shapiro.test(effort_overall$BorgRPEdiff[effort_overall$Work.Period=="Time3_endWorkDay"])
+# W = 0.91589, p-value = 0.04741
+shapiro.test(effort_overall$OmniRPEdiff[effort_overall$Work.Period=="Time1_after90minWork"])
+# W = 0.88644, p-value = 0.01123
+shapiro.test(effort_overall$OmniRPEdiff[effort_overall$Work.Period=="Time2_after30minBreak"])
+# W = 0.87846, p-value = 0.007739
+shapiro.test(effort_overall$OmniRPEdiff[effort_overall$Work.Period=="Time3_endWorkDay"])
+# W = 0.94746, p-value = 0.2385
+
 # Extract local discomfort at the beginning and end of work, subtract for difference
 effort_local_beg <- effort %>%
   filter(`Work Period` == "Start_Work") %>% 
