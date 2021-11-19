@@ -29,10 +29,10 @@ effort_overall <- left_join(effort_overall, effort_overall_baseline) %>%
   mutate(BorgRPEdiff = BorgRPE-BorgRPEbaseline, OmniRPEdiff = OmniRPE-OmniRPEbaseline)
 effort_overall <- transform(effort_overall, 
                      `Work Period` = ifelse(`Work Period`=="Start_Lunch", 
-                                            "Time1_after90minWork",
+                                            "T1 after 90-min work",
                                             ifelse(`Work Period`=="End_Lunch", 
-                                                   "Time2_after30minBreak",
-                                                   "Time3_endWorkDay")))
+                                                   "T2 after 30-min break",
+                                                   "T3 end of work day")))
 
 # Examine data
 hist(effort_overall$BorgRPEdiff, breaks = 15)
@@ -42,27 +42,27 @@ ggqqplot(effort_overall$OmniRPEdiff)
 shapiro.test(effort_overall$BorgRPEdiff) # W = 0.94719, p-value = 0.004427
 shapiro.test(effort_overall$OmniRPEdiff) # W = 0.92331, p-value = 0.0003018
 
-shapiro.test(effort_overall$BorgRPEdiff[effort_overall$Work.Period=="Time1_after90minWork"])
+# shapiro.test(effort_overall$BorgRPEdiff[effort_overall$Work.Period=="Time1_after90minWork"])
 # W = 0.93282, p-value = 0.1127
-shapiro.test(effort_overall$BorgRPEdiff[effort_overall$Work.Period=="Time2_after30minBreak"])
+# shapiro.test(effort_overall$BorgRPEdiff[effort_overall$Work.Period=="Time2_after30minBreak"])
 # W = 0.88968, p-value = 0.01309
-shapiro.test(effort_overall$BorgRPEdiff[effort_overall$Work.Period=="Time3_endWorkDay"])
+# shapiro.test(effort_overall$BorgRPEdiff[effort_overall$Work.Period=="Time3_endWorkDay"])
 # W = 0.91589, p-value = 0.04741
-shapiro.test(effort_overall$OmniRPEdiff[effort_overall$Work.Period=="Time1_after90minWork"])
+# shapiro.test(effort_overall$OmniRPEdiff[effort_overall$Work.Period=="Time1_after90minWork"])
 # W = 0.88644, p-value = 0.01123
-shapiro.test(effort_overall$OmniRPEdiff[effort_overall$Work.Period=="Time2_after30minBreak"])
+# shapiro.test(effort_overall$OmniRPEdiff[effort_overall$Work.Period=="Time2_after30minBreak"])
 # W = 0.87846, p-value = 0.007739
-shapiro.test(effort_overall$OmniRPEdiff[effort_overall$Work.Period=="Time3_endWorkDay"])
+# shapiro.test(effort_overall$OmniRPEdiff[effort_overall$Work.Period=="Time3_endWorkDay"])
 # W = 0.94746, p-value = 0.2385
 
 # Visualize data
 ggline(effort_overall, x = "Work.Period", y = "BorgRPE", color = "Activity",
        xlab = "Work Period", ylab = "Borg RPE Difference",
-       title = "Borg RPE increases or decreases over work shift",
+       title = "Borg RPE increases or decreases through the work shift",
        add = c("mean_se", "dotplot"), palette = c("#1B9E77", "#D95F02", "#7570B3"))
 ggline(effort_overall, x = "Work.Period", y = "OmniRPE", color = "Activity",
        xlab = "Work Period", ylab = "Omni RPE Difference",
-       title = "Omni RPE increases or decreases over work shift",
+       title = "Omni RPE increases or decreases through the work shift",
        add = c("mean_se", "dotplot"), palette = c("#1B9E77", "#D95F02", "#7570B3"))
 
 # Extract local discomfort at the beginning and end of work, subtract for difference
@@ -96,7 +96,6 @@ hist(effort_local$Value)
 ggqqplot(effort_local$Value)
 kruskal.test(Value ~ Activity, data = effort_local) # chi-squared = 8.6515, df = 2, p-value = 0.01322
 kruskal.test(Value ~ Side, data = effort_local) # chi-squared = 0.42581, df = 1, p-value = 0.5141
-friedman.test(Value ~ Activity|Side, ddata = effort_local)
 
 # Visualize data
 ggboxplot(effort_local, x = "Activity", y = "Value", color = "Side",
