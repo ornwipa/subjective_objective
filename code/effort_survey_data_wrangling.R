@@ -55,6 +55,16 @@ shapiro.test(effort_overall$OmniRPEdiff[effort_overall$Work.Period=="Time2_after
 shapiro.test(effort_overall$OmniRPEdiff[effort_overall$Work.Period=="Time3_endWorkDay"])
 # W = 0.94746, p-value = 0.2385
 
+# Visualize data
+ggline(effort_overall, x = "Work.Period", y = "BorgRPE", color = "Activity",
+       xlab = "Work Period", ylab = "Borg RPE Difference",
+       title = "Borg RPE increases or decreases over work shift",
+       add = c("mean_se", "dotplot"), palette = c("#1B9E77", "#D95F02", "#7570B3"))
+ggline(effort_overall, x = "Work.Period", y = "OmniRPE", color = "Activity",
+       xlab = "Work Period", ylab = "Omni RPE Difference",
+       title = "Omni RPE increases or decreases over work shift",
+       add = c("mean_se", "dotplot"), palette = c("#1B9E77", "#D95F02", "#7570B3"))
+
 # Extract local discomfort at the beginning and end of work, subtract for difference
 effort_local_beg <- effort %>%
   filter(`Work Period` == "Start_Work") %>% 
@@ -79,3 +89,18 @@ ggqqplot(effort_local$Dominant)
 ggqqplot(effort_local$Nondominant)
 shapiro.test(effort_local$Dominant) # W = 0.84357, p-value = 0.001665
 shapiro.test(effort_local$Nondominant) # W = 0.77655, p-value = 0.0001248
+
+# Gather from wide format to long format, examine data, and run preliminary tests
+effort_local <- effort_local %>% gather(key = Side, value = Value, -c(Subject, Activity))
+hist(effort_local$Value)
+ggqqplot(effort_local$Value)
+kruskal.test(Value ~ Activity, data = effort_local) # chi-squared = 8.6515, df = 2, p-value = 0.01322
+kruskal.test(Value ~ Side, data = effort_local) # chi-squared = 0.42581, df = 1, p-value = 0.5141
+friedman.test(Value ~ Activity|Side, ddata = effort_local)
+
+# Visualize data
+ggboxplot(effort_local, x = "Activity", y = "Value", color = "Side",
+       xlab = "Harvesting Method", ylab = "Borg CR10 Difference", 
+       order = c("Ground", "Ladder", "Platform"), 
+       palette = c("#0072B2", "#D55E00"),
+       title = "Borg CR10 increases or decreases through the work shift")
