@@ -1,6 +1,6 @@
 measure_overall <- left_join(hrr, effort_overall)
-scatter.smooth(measure_overall$BorgRPE, measure_overall$pHRR)
-scatter.smooth(measure_overall$OmniRPE, measure_overall$pHRR)
+scatter.smooth(measure_overall$BorgRPEdiff, measure_overall$pHRR)
+scatter.smooth(measure_overall$OmniRPEdiff, measure_overall$pHRR)
 
 # preliminary test for correlations
 cor.test(sqrt(measure_overall$pHRR), measure_overall$BorgRPEdiff)
@@ -68,3 +68,25 @@ anova(lm(sqrt(pHRR) ~ OmniRPEdiff + Activity, data = measure_overall_t2))
 measure_overall_t3 <- measure_overall %>% filter(Work.Period=="T3 end of work day")
 anova(lm(sqrt(pHRR) ~ BorgRPEdiff + Activity, data = measure_overall_t1))
 anova(lm(sqrt(pHRR) ~ OmniRPEdiff + Activity, data = measure_overall_t1))
+
+# Visualize data by work period (time), but not by activity (harvesting methods)
+ggplot(aes(x=BorgRPEdiff, y=sqrt(pHRR), col=Work.Period), 
+           data = measure_overall) + 
+  geom_point() + 
+  geom_smooth() +
+  scale_color_manual(values=c("#999999", "#E69F00", "#56B4E9")) +
+  ggtitle("Association: % HRR - Borg RPE Difference") +
+  xlab("Borg RPE Difference") + ylab("Square Root of % HRR")
+# ggplot(aes(x=BorgRPEdiff, y=pHRR, col=Activity), 
+#        data = measure_overall) + geom_point() + geom_smooth() +
+#   scale_color_manual(values=c("#999999", "#E69F00", "#56B4E9"))
+ggplot(aes(x=OmniRPEdiff, y=sqrt(pHRR), col=Work.Period), 
+       data = measure_overall) + 
+  geom_point() + 
+  geom_smooth() +
+  scale_color_manual(values=c("#999999", "#E69F00", "#56B4E9")) +
+  ggtitle("Association: % HRR - Omni RPE Difference") +
+  xlab("Omni RPE Difference") + ylab("Square Root of % HRR")
+# ggplot(aes(x=OmniRPEdiff, y=pHRR, col=Activity), 
+#        data = measure_overall) + geom_point() + geom_smooth() +
+#   scale_color_manual(values=c("#999999", "#E69F00", "#56B4E9"))      
