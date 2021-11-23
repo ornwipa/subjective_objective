@@ -1,5 +1,6 @@
 library(readr)
 library(ggpubr)
+library(tidyverse)
 
 # Import and preliminary analyze MPF changes over time
 medianPF <- read_csv("data/medianPF_roll10min_removedbreak.csv")
@@ -26,18 +27,24 @@ lm(y ~ t)
 # (Intercept)            t  
 #    51.97315     -0.09291
 
-extractCoef <- function()
-
 # Extract coefficient or slope as changes in median power frequency
 SubjList <- unique(medianPF$Subject) # missing Subj 707, 710, 712
 MuscleList <- unique(medianPF$DominantSide) # "DM" "ND"
+
+slope <- medianPF %>% 
+  select(Subject, Equipment, DominantSide) %>% 
+  group_by(Subject, Equipment, DominantSide) %>% 
+  unique() %>% mutate(slope = NA)
 
 for (subj in SubjList) {
   for (muscle in MuscleList) {
     y <- medianPF$Value[medianPF$Subject==subj & medianPF$DominantSide==muscle]
     if (length(y) != 0) {
       t <- 1:length(y)
-      print(lm(y ~ t)$coef[2])
+      slope$slope[slope$Subject==subj & slope$DominantSide==muscle] <- lm(y ~ t)$coef[2]
     }
   }
 }
+
+hist(slope$slope, breaks = 5)
+shapiro.test(slope$slope) # W = 0.94684, p-value = 0.05909
