@@ -1,3 +1,4 @@
+#### Correlations overall ####
 measure_overall <- left_join(hrr, effort_overall)
 scatter.smooth(measure_overall$BorgRPEdiff, measure_overall$pHRR)
 scatter.smooth(measure_overall$OmniRPEdiff, measure_overall$pHRR)
@@ -73,7 +74,7 @@ anova(lm(sqrt(pHRR) ~ OmniRPEdiff + Activity, data = measure_overall_t1))
 ggplot(aes(x=BorgRPEdiff, y=sqrt(pHRR), col=Work.Period), 
            data = measure_overall) + 
   geom_point() + 
-  geom_smooth() +
+  geom_smooth(method = "lm") +
   scale_color_manual(values=c("#999999", "#E69F00", "#56B4E9")) +
   ggtitle("Association: % HRR - Borg RPE Difference") +
   xlab("Borg RPE Difference") + ylab("Square Root of % HRR")
@@ -83,10 +84,33 @@ ggplot(aes(x=BorgRPEdiff, y=sqrt(pHRR), col=Work.Period),
 ggplot(aes(x=OmniRPEdiff, y=sqrt(pHRR), col=Work.Period), 
        data = measure_overall) + 
   geom_point() + 
-  geom_smooth() +
+  geom_smooth(method = "lm") +
   scale_color_manual(values=c("#999999", "#E69F00", "#56B4E9")) +
   ggtitle("Association: % HRR - Omni RPE Difference") +
   xlab("Omni RPE Difference") + ylab("Square Root of % HRR")
 # ggplot(aes(x=OmniRPEdiff, y=pHRR, col=Activity), 
 #        data = measure_overall) + geom_point() + geom_smooth() +
 #   scale_color_manual(values=c("#999999", "#E69F00", "#56B4E9"))      
+
+#### Correlations local ####
+names(slope) <- c("Subject","Activity","Side","SlopeMPFtime")
+slope <- slope %>% mutate(Subject = substr(Subject,5,7))
+slope <- transform(slope, Side = ifelse(Side=="DM","Dominant","Nondominant"))
+measure_local <- left_join(slope, effort_local)
+
+scatter.smooth(measure_local$Value, measure_local$SlopeMPFtime, 
+               xlab = "Borg CR10 difference between start and end of work",
+               ylab = "Slope of the MPF-time regression", 
+               main = "Association between Borg CR10 and EMG")
+
+anova(lm(SlopeMPFtime ~ Value, data = measure_local))
+anova(lm(SlopeMPFtime ~ Value + Side, data = measure_local))
+anova(lm(SlopeMPFtime ~ Value + Activity, data = measure_local))
+anova(lm(SlopeMPFtime ~ Value + Activity + Side, data = measure_local))
+
+measure_local %>% ggplot(aes(x=Value, y=SlopeMPFtime, col=Activity)) + 
+  geom_point() + scale_color_manual(values=c("#1B9E77", "#D95F02", "#7570B3")) +
+  labs(x = "Borg CR10 difference between start and end of work",
+       y = "Slope of the MPF-time regression",
+       title = "Association between Borg CR10 and EMG") #+
+  # geom_smooth(method = "lm", fill = NA)
