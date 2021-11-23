@@ -48,3 +48,19 @@ for (subj in SubjList) {
 
 hist(slope$slope, breaks = 5)
 shapiro.test(slope$slope) # W = 0.94684, p-value = 0.05909
+
+# Histogram showing data distribution
+library(ggplot2)
+ggplot(medianPF, aes(x=Value)) + 
+  geom_histogram(aes(y=..density..), color="black", fill="white", binwidth=2) +
+  geom_density(alpha=.2, fill="#FF6666") +
+  labs(title="Histogram of electromyography median power frequency (MPF)", 
+       x="Median Power Frequency (Hz)", y="Density") +
+  theme_classic()
+ggplot(slope, aes(x=slope)) + 
+  geom_histogram(aes(y=..density..), color="black", fill="grey", 
+                 breaks=seq(-0.6, 0.6, by=.2)) +
+  # geom_density(alpha=.2, fill="#FF6666") +
+  labs(title="Histogram of MPF-time regression slope by participant (N=20)", 
+       x="Slope", y="Density") +
+  theme_classic()
