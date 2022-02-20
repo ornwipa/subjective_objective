@@ -29,7 +29,7 @@ effort_overall <- left_join(effort_overall, effort_overall_baseline) %>%
   mutate(BorgRPEdiff = BorgRPE-BorgRPEbaseline, OmniRPEdiff = OmniRPE-OmniRPEbaseline)
 effort_overall <- transform(effort_overall, 
                      `Work Period` = ifelse(`Work Period`=="Start_Lunch", 
-                                            "T1 after 90-min work",
+                                            "T1 after 150-min work",
                                             ifelse(`Work Period`=="End_Lunch", 
                                                    "T2 after 30-min break",
                                                    "T3 end of work day")))

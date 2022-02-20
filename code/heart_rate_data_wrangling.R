@@ -43,7 +43,7 @@ hr_work <- Polar %>%
   mutate(WorkingHR = Median) %>% select(Subject, Activity, `Work Period`, WorkingHR)
 hr_work <- transform(hr_work, 
                      `Work Period` = ifelse(`Work Period`=="Start_Lunch", 
-                                            "T1 after 90-min work",
+                                            "T1 after 150-min work",
                                             ifelse(`Work Period`=="End_Lunch", 
                                                    "T2 after 30-min break",
                                                    "T3 end of work day")))
