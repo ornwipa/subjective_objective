@@ -65,6 +65,19 @@ ggline(effort_overall, x = "Work.Period", y = "OmniRPE", color = "Activity",
        title = "Omni RPE increases or decreases through the work shift",
        add = c("mean_se", "dotplot"), palette = c("#1B9E77", "#D95F02", "#7570B3"))
 
+# Statistical tests
+anova(lm(BorgRPE ~ Activity + Work.Period, data = effort_overall))
+#             Df Sum Sq Mean Sq F value    Pr(>F)    
+# Activity     2   1.86   0.931  0.1882    0.8289    
+# Work.Period  2 181.86  90.931 18.3912 4.299e-07 ***
+# Residuals   67 331.26   4.944  
+
+anova(lm(OmniRPE ~ Activity + Work.Period, data = effort_overall))
+#             Df  Sum Sq Mean Sq F value    Pr(>F)    
+# activity     2  13.194   6.597  3.1364   0.04988 *  
+# Work.Period  2 166.861  83.431 39.6638 4.316e-12 ***
+# Residuals   67 140.931   2.103
+
 # Extract local discomfort at the beginning and end of work, subtract for difference
 effort_local_beg <- effort %>%
   filter(`Work Period` == "Start_Work") %>% 

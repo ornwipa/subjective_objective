@@ -92,4 +92,10 @@ ggline(hrr, x = "Work.Period", y = "pHRR", color = "Activity",
        xlab = "Work Period", ylab = "% HRR",
        title = "Percent of heart rate reserve through the work shift",
        add = c("mean_se", "dotplot"), palette = c("#1B9E77", "#D95F02", "#7570B3"))
-             
+
+# Statistical tests
+anova(lm(pHRR ~ Activity + Work.Period, data = hrr))
+#             Df  Sum Sq Mean Sq F value    Pr(>F)    
+# Activity     2 0.33708 0.16854  10.199 0.0001359 ***
+# Work.Period  2 1.18533 0.59266  35.865 2.575e-11 ***
+# Residuals   67 1.10717 0.01652                      
