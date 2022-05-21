@@ -39,14 +39,14 @@ lm(sqrt(pHRR) ~ OmniRPE + Activity + Work.Period, data = measure_overall)
 
 # stratify by harvesting methods
 measure_overall_ground <- measure_overall %>% filter(Activity=="Ground")
-anova(lm(sqrt(pHRR) ~ BorgRPEdiff + Work.Period, data = measure_overall_ground)) # 0.0723958 .
-anova(lm(sqrt(pHRR) ~ OmniRPEdiff + Work.Period, data = measure_overall_ground))
+anova(lm(sqrt(pHRR) ~ BorgRPE + Work.Period, data = measure_overall_ground))
+anova(lm(sqrt(pHRR) ~ OmniRPE + Work.Period, data = measure_overall_ground)) # 0.0140903 *
 measure_overall_ladder <- measure_overall %>% filter(Activity=="Ladder")
-anova(lm(sqrt(pHRR) ~ BorgRPEdiff + Work.Period, data = measure_overall_ladder)) # 0.04378 *
-anova(lm(sqrt(pHRR) ~ OmniRPEdiff + Work.Period, data = measure_overall_ladder)) # 0.07789 .
+anova(lm(sqrt(pHRR) ~ BorgRPE + Work.Period, data = measure_overall_ladder))
+anova(lm(sqrt(pHRR) ~ OmniRPE + Work.Period, data = measure_overall_ladder)) # 0.01543 *
 measure_overall_platform <- measure_overall %>% filter(Activity=="Platform")
-anova(lm(sqrt(pHRR) ~ BorgRPEdiff + Work.Period, data = measure_overall_platform))
-anova(lm(sqrt(pHRR) ~ OmniRPEdiff + Work.Period, data = measure_overall_platform))
+anova(lm(sqrt(pHRR) ~ BorgRPE + Work.Period, data = measure_overall_platform))
+anova(lm(sqrt(pHRR) ~ OmniRPE + Work.Period, data = measure_overall_platform)) # 0.085635 .
 
 # stratify by work period
 measure_overall_t1 <- measure_overall %>% filter(Work.Period=="T1 after 150-min work")
@@ -59,17 +59,21 @@ measure_overall_t3 <- measure_overall %>% filter(Work.Period=="T3 end of work da
 anova(lm(sqrt(pHRR) ~ BorgRPE + Activity, data = measure_overall_t1))
 anova(lm(sqrt(pHRR) ~ OmniRPE + Activity, data = measure_overall_t1))
 
-# Visualize data by work period (time), but not by activity (harvesting methods)
+# Visualize data
 ggplot(aes(x=BorgRPE, y=sqrt(pHRR)), 
            data = measure_overall_t2) + 
   geom_point() + geom_smooth(method = "lm") +
   ggtitle("Association: % HRR - Borg RPE after a 30-minute break") +
   xlab("Borg RPE") + ylab("Square Root of % HRR")
-ggplot(aes(x=BorgRPE, y=pHRR), 
-      data = measure_overall_ladder) + 
+ggplot(aes(x=OmniRPE, y=pHRR, col=Activity), 
+      data = measure_overall) + 
   geom_point() + geom_smooth(method = "lm") +
-  ggtitle("Association: % HRR - Borg RPE in ladder workers") +
-  xlab("Borg RPE") + ylab("Square Root of % HRR")
+  scale_color_manual(values=c("#1B9E77", "#D95F02", "#7570B3")) +
+  ggtitle("Association: % HRR - Omni RPE by Harvesting Method") +
+  xlab("Omni RPE") + ylab("Square Root of % HRR")
+
+lm(sqrt(pHRR) ~ BorgRPE + Work.Period, data = measure_overall_ladder) # -0.0205
+lm(sqrt(pHRR) ~ BorgRPE + Activity, data = measure_overall_t2) # -0.03627
 
 #### Correlations local ####
 names(slope) <- c("Subject","Activity","Side","SlopeMPFtime")
