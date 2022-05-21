@@ -63,13 +63,13 @@ anova(lm(sqrt(pHRR) ~ OmniRPE + Activity, data = measure_overall_t1))
 ggplot(aes(x=BorgRPE, y=sqrt(pHRR)), 
            data = measure_overall_t2) + 
   geom_point() + geom_smooth(method = "lm") +
-  ggtitle("Association: % HRR - Borg RPE after a 30-minute break") +
+  ggtitle("Association between % HRR and Borg RPE after a 30-minute break") +
   xlab("Borg RPE") + ylab("Square Root of % HRR")
 ggplot(aes(x=OmniRPE, y=pHRR, col=Activity), 
       data = measure_overall) + 
   geom_point() + geom_smooth(method = "lm") +
   scale_color_manual(values=c("#1B9E77", "#D95F02", "#7570B3")) +
-  ggtitle("Association: % HRR - Omni RPE by Harvesting Method") +
+  ggtitle("Association between % HRR and Omni RPE by Harvesting Method") +
   xlab("Omni RPE") + ylab("Square Root of % HRR")
 
 lm(sqrt(pHRR) ~ BorgRPE + Work.Period, data = measure_overall_ladder) # -0.0205
