@@ -1,0 +1,131 @@
+> # stratify by harvesting methods
+
+> measure_overall_ground <- measure_overall %>% filter(Activity=="Ground")
+> anova(lm(sqrt(pHRR) ~ BorgRPE + Work.Period, data = measure_overall_ground))
+Analysis of Variance Table
+
+Response: sqrt(pHRR)
+            Df  Sum Sq  Mean Sq F value    Pr(>F)    
+BorgRPE      1 0.01249 0.012489  1.2524    0.2764    
+Work.Period  2 0.34229 0.171145 17.1629 4.573e-05 ***
+Residuals   20 0.19944 0.009972                      
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+> anova(lm(sqrt(pHRR) ~ OmniRPE + Work.Period, data = measure_overall_ground))
+Analysis of Variance Table
+
+Response: sqrt(pHRR)
+            Df   Sum Sq  Mean Sq F value    Pr(>F)    
+OmniRPE      1 0.073016 0.073016  7.2348 0.0140903 *  
+Work.Period  2 0.279352 0.139676 13.8398 0.0001686 ***
+Residuals   20 0.201847 0.010092                      
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+> measure_overall_ladder <- measure_overall %>% filter(Activity=="Ladder")
+> anova(lm(sqrt(pHRR) ~ BorgRPE + Work.Period, data = measure_overall_ladder))
+Analysis of Variance Table
+
+Response: sqrt(pHRR)
+            Df  Sum Sq Mean Sq F value   Pr(>F)    
+BorgRPE      1 0.01944 0.01944  1.7235   0.2041    
+Work.Period  2 0.72199 0.36099 32.0107 5.84e-07 ***
+Residuals   20 0.22555 0.01128                     
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+> anova(lm(sqrt(pHRR) ~ OmniRPE + Work.Period, data = measure_overall_ladder))
+Analysis of Variance Table
+
+Response: sqrt(pHRR)
+            Df  Sum Sq  Mean Sq F value    Pr(>F)    
+OmniRPE      1 0.08761 0.087609  7.0129   0.01543 *  
+Work.Period  2 0.62951 0.314755 25.1954 3.429e-06 ***
+Residuals   20 0.24985 0.012493                      
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+> measure_overall_platform <- measure_overall %>% filter(Activity=="Platform")
+> anova(lm(sqrt(pHRR) ~ BorgRPE + Work.Period, data = measure_overall_platform))
+Analysis of Variance Table
+
+Response: sqrt(pHRR)
+            Df   Sum Sq  Mean Sq F value   Pr(>F)   
+BorgRPE      1 0.034601 0.034601  2.6582 0.121404   
+Work.Period  2 0.206236 0.103118  7.9220 0.003706 **
+Residuals   17 0.221284 0.013017                    
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+> anova(lm(sqrt(pHRR) ~ OmniRPE + Work.Period, data = measure_overall_platform))
+Analysis of Variance Table
+
+Response: sqrt(pHRR)
+            Df   Sum Sq  Mean Sq F value   Pr(>F)   
+OmniRPE      1 0.042934 0.042934  3.2342 0.089896 . 
+Work.Period  2 0.193515 0.096758  7.2888 0.005177 **
+Residuals   17 0.225673 0.013275                    
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+> # stratify by work period
+
+> measure_overall_t1 <- measure_overall %>% filter(Work.Period=="T1 after 90-min work")
+> anova(lm(sqrt(pHRR) ~ BorgRPE + Activity, data = measure_overall_t1))
+Analysis of Variance Table
+
+Response: sqrt(pHRR)
+          Df   Sum Sq  Mean Sq F value   Pr(>F)   
+BorgRPE    1 0.019748 0.019748  2.1947 0.154883   
+Activity   2 0.124697 0.062349  6.9290 0.005496 **
+Residuals 19 0.170966 0.008998                    
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+> anova(lm(sqrt(pHRR) ~ OmniRPE + Activity, data = measure_overall_t1))
+Analysis of Variance Table
+
+Response: sqrt(pHRR)
+          Df   Sum Sq  Mean Sq F value   Pr(>F)   
+OmniRPE    1 0.000777 0.000777  0.0866 0.771705   
+Activity   2 0.144239 0.072119  8.0417 0.002949 **
+Residuals 19 0.170396 0.008968                    
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+> measure_overall_t2 <- measure_overall %>% filter(Work.Period=="T2 after 30-min break")
+> anova(lm(sqrt(pHRR) ~ BorgRPE + Activity, data = measure_overall_t2))
+Analysis of Variance Table
+
+Response: sqrt(pHRR)
+          Df   Sum Sq  Mean Sq F value   Pr(>F)   
+BorgRPE    1 0.071725 0.071725  8.4813 0.008934 **
+Activity   2 0.025057 0.012529  1.4815 0.252403   
+Residuals 19 0.160680 0.008457                    
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+> anova(lm(sqrt(pHRR) ~ OmniRPE + Activity, data = measure_overall_t2))
+Analysis of Variance Table
+
+Response: sqrt(pHRR)
+          Df   Sum Sq   Mean Sq F value Pr(>F)
+OmniRPE    1 0.006728 0.0067284  0.5834 0.4544
+Activity   2 0.031598 0.0157990  1.3698 0.2781
+Residuals 19 0.219136 0.0115335               
+> measure_overall_t3 <- measure_overall %>% filter(Work.Period=="T3 end of work day")
+> anova(lm(sqrt(pHRR) ~ BorgRPE + Activity, data = measure_overall_t1))
+Analysis of Variance Table
+
+Response: sqrt(pHRR)
+          Df   Sum Sq  Mean Sq F value   Pr(>F)   
+BorgRPE    1 0.019748 0.019748  2.1947 0.154883   
+Activity   2 0.124697 0.062349  6.9290 0.005496 **
+Residuals 19 0.170966 0.008998                    
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+> anova(lm(sqrt(pHRR) ~ OmniRPE + Activity, data = measure_overall_t1))
+Analysis of Variance Table
+
+Response: sqrt(pHRR)
+          Df   Sum Sq  Mean Sq F value   Pr(>F)   
+OmniRPE    1 0.000777 0.000777  0.0866 0.771705   
+Activity   2 0.144239 0.072119  8.0417 0.002949 **
+Residuals 19 0.170396 0.008968                    
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1

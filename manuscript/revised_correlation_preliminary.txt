@@ -1,0 +1,51 @@
+> cor.test(measure_overall$pHRR, measure_overall$BorgRPE)
+
+	Pearson's product-moment correlation
+
+data:  measure_overall$pHRR and measure_overall$BorgRPE
+t = 1.2481, df = 67, p-value = 0.2163
+alternative hypothesis: true correlation is not equal to 0
+95 percent confidence interval:
+ -0.08912335  0.37407206
+sample estimates:
+     cor 
+0.150737 
+
+> cor.test(measure_overall$pHRR, measure_overall$OmniRPE)
+
+	Pearson's product-moment correlation
+
+data:  measure_overall$pHRR and measure_overall$OmniRPE
+t = 2.6209, df = 67, p-value = 0.01084
+alternative hypothesis: true correlation is not equal to 0
+95 percent confidence interval:
+ 0.07357649 0.50516705
+sample estimates:
+      cor 
+0.3049468 
+
+> cor.test(sqrt(measure_overall$pHRR), measure_overall$BorgRPE)
+
+	Pearson's product-moment correlation
+
+data:  sqrt(measure_overall$pHRR) and measure_overall$BorgRPE
+t = 1.2983, df = 67, p-value = 0.1986
+alternative hypothesis: true correlation is not equal to 0
+95 percent confidence interval:
+ -0.08310665  0.37927366
+sample estimates:
+      cor 
+0.1566554 
+
+> cor.test(sqrt(measure_overall$pHRR), measure_overall$OmniRPE)
+
+	Pearson's product-moment correlation
+
+data:  sqrt(measure_overall$pHRR) and measure_overall$OmniRPE
+t = 2.7323, df = 67, p-value = 0.008034
+alternative hypothesis: true correlation is not equal to 0
+95 percent confidence interval:
+ 0.08642208 0.51473328
+sample estimates:
+      cor 
+0.3166264

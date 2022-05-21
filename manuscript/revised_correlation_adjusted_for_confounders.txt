@@ -1,0 +1,72 @@
+> # regression test, adjusting confounders
+
+> anova(lm(pHRR ~ BorgRPE + Activity + Work.Period, data = measure_overall))
+Analysis of Variance Table
+
+Response: pHRR
+            Df  Sum Sq Mean Sq F value    Pr(>F)    
+BorgRPE      1 0.05830 0.05830  3.7142   0.05846 .  
+Activity     2 0.36953 0.18477 11.7713 4.534e-05 ***
+Work.Period  2 1.14913 0.57457 36.6050 2.829e-11 ***
+Residuals   63 0.98887 0.01570                      
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+> anova(lm(sqrt(pHRR) ~ BorgRPE + Activity + Work.Period, data = measure_overall))
+Analysis of Variance Table
+
+Response: sqrt(pHRR)
+            Df  Sum Sq Mean Sq F value    Pr(>F)    
+BorgRPE      1 0.05448 0.05448  4.4902 0.0380376 *  
+Activity     2 0.24669 0.12334 10.1657 0.0001492 ***
+Work.Period  2 1.15446 0.57723 47.5737 2.563e-13 ***
+Residuals   63 0.76440 0.01213                      
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+> anova(lm(pHRR ~ OmniRPE + Activity + Work.Period, data = measure_overall))
+Analysis of Variance Table
+
+Response: pHRR
+            Df  Sum Sq Mean Sq F value    Pr(>F)    
+OmniRPE      1 0.23860 0.23860 14.2949 0.0003498 ***
+Activity     2 0.32727 0.16364  9.8035 0.0001964 ***
+Work.Period  2 0.94839 0.47420 28.4093 1.606e-09 ***
+Residuals   63 1.05157 0.01669                      
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+> anova(lm(sqrt(pHRR) ~ OmniRPE + Activity + Work.Period, data = measure_overall))
+Analysis of Variance Table
+
+Response: sqrt(pHRR)
+            Df  Sum Sq Mean Sq F value    Pr(>F)    
+OmniRPE      1 0.22256 0.22256 16.9857 0.0001120 ***
+Activity     2 0.21122 0.10561  8.0602 0.0007641 ***
+Work.Period  2 0.96076 0.48038 36.6619 2.756e-11 ***
+Residuals   63 0.82548 0.01310                      
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+> lm(sqrt(pHRR) ~ BorgRPE + Activity + Work.Period, data = measure_overall)
+
+Call:
+lm(formula = sqrt(pHRR) ~ BorgRPE + Activity + Work.Period, data = measure_overall)
+
+Coefficients:
+                     (Intercept)                           BorgRPE  
+                         0.65755                          -0.01407  
+                  ActivityLadder                  ActivityPlatform  
+                         0.13450                           0.04280  
+Work.PeriodT2 after 30-min break     Work.PeriodT3 end of work day  
+                        -0.26249                           0.07963  
+
+> lm(sqrt(pHRR) ~ OmniRPE + Activity + Work.Period, data = measure_overall)
+
+Call:
+lm(formula = sqrt(pHRR) ~ OmniRPE + Activity + Work.Period, data = measure_overall)
+
+Coefficients:
+                     (Intercept)                           OmniRPE  
+                         0.54488                          -0.00378  
+                  ActivityLadder                  ActivityPlatform  
+                         0.13804                           0.03895  
+Work.PeriodT2 after 30-min break     Work.PeriodT3 end of work day  
+                        -0.25409                           0.04942
