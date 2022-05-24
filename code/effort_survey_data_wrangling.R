@@ -56,13 +56,13 @@ shapiro.test(effort_overall$OmniRPEdiff) # W = 0.92331, p-value = 0.0003018
 # W = 0.94746, p-value = 0.2385
 
 # Visualize data
-ggline(effort_overall, x = "Work.Period", y = "BorgRPE", color = "Activity",
-       xlab = "Work Period", ylab = "Borg RPE Difference",
-       title = "Borg RPE increases or decreases through the work shift",
+ggboxplot(effort_overall, x = "Work.Period", y = "BorgRPE", color = "Activity",
+       xlab = "Work Period", ylab = "Borg RPE",
+       title = "Borg RPE through the work shift",
        add = c("mean_se", "dotplot"), palette = c("#1B9E77", "#D95F02", "#7570B3"))
-ggline(effort_overall, x = "Work.Period", y = "OmniRPE", color = "Activity",
-       xlab = "Work Period", ylab = "Omni RPE Difference",
-       title = "Omni RPE increases or decreases through the work shift",
+ggboxplot(effort_overall, x = "Work.Period", y = "OmniRPE", color = "Activity",
+       xlab = "Work Period", ylab = "Omni RPE",
+       title = "Omni RPE through the work shift",
        add = c("mean_se", "dotplot"), palette = c("#1B9E77", "#D95F02", "#7570B3"))
 
 # Statistical tests
