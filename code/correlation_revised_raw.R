@@ -95,5 +95,5 @@ measure_local %>% ggplot(aes(x=Value, y=SlopeMPFtime, col=Activity)) +
   geom_point() + scale_color_manual(values=c("#1B9E77", "#D95F02", "#7570B3")) +
   labs(x = "Borg CR10 difference between start and end of work",
        y = "Slope of the MPF-time regression",
-       title = "Association between Borg CR10 and EMG") #+
-  # geom_smooth(method = "lm", fill = NA)
+       title = "Association between Borg CR10 and EMG") +
+  geom_smooth(method = "lm")#, fill = NA)
