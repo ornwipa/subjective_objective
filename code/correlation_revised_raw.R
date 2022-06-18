@@ -65,12 +65,13 @@ ggplot(aes(x=BorgRPE, y=sqrt(pHRR)),
   geom_point() + geom_smooth(method = "lm") +
   ggtitle("Association between % HRR and Borg RPE after a 30-minute break") +
   xlab("Borg RPE") + ylab("Square Root of % HRR")
-ggplot(aes(x=OmniRPE, y=pHRR, col=Activity), 
+p <- ggplot(aes(x=OmniRPE, y=pHRR, col=Activity), 
       data = measure_overall) + 
   geom_point() + geom_smooth(method = "lm") +
   scale_color_manual(values=c("#1B9E77", "#D95F02", "#7570B3")) +
   ggtitle("Association between % HRR and Omni RPE by Harvesting Method") +
   xlab("Omni RPE") + ylab("Square Root of % HRR")
+p + facet_grid(cols = vars(Work.Period))
 
 lm(sqrt(pHRR) ~ BorgRPE + Work.Period, data = measure_overall_ladder) # -0.0205
 lm(sqrt(pHRR) ~ BorgRPE + Activity, data = measure_overall_t2) # -0.03627
