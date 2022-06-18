@@ -72,11 +72,22 @@ anova(lm(BorgRPE ~ Activity + Work.Period, data = effort_overall))
 # Work.Period  2 181.86  90.931 18.3912 4.299e-07 ***
 # Residuals   67 331.26   4.944  
 
+poshoc <- aov(BorgRPE ~ Activity + Work.Period, data = effort_overall)
+TukeyHSD(poshoc, "Work.Period") # p adj < 0.0001
+
 anova(lm(OmniRPE ~ Activity + Work.Period, data = effort_overall))
 #             Df  Sum Sq Mean Sq F value    Pr(>F)    
 # activity     2  13.194   6.597  3.1364   0.04988 *  
 # Work.Period  2 166.861  83.431 39.6638 4.316e-12 ***
 # Residuals   67 140.931   2.103
+
+poshoc <- aov(OmniRPE ~ Activity + Work.Period, data = effort_overall)
+TukeyHSD(poshoc, "Work.Period") # p adj < 0.0001
+TukeyHSD(poshoc, "Activity")
+#                      diff        lwr      upr     p adj
+# Ladder-Ground   0.6250000 -0.3785087 1.628509 0.3008179
+# Platform-Ground 1.0416667  0.0381580 2.045175 0.0401574
+# Platform-Ladder 0.4166667 -0.5868420 1.420175 0.5824390
 
 # Extract local discomfort at the beginning and end of work, subtract for difference
 effort_local_beg <- effort %>%

@@ -99,3 +99,10 @@ anova(lm(pHRR ~ Activity + Work.Period, data = hrr))
 # Activity     2 0.33708 0.16854  10.199 0.0001359 ***
 # Work.Period  2 1.18533 0.59266  35.865 2.575e-11 ***
 # Residuals   67 1.10717 0.01652                      
+
+poshoc <- aov(pHRR ~ Activity + Work.Period, data = hrr)
+TukeyHSD(poshoc, "Activity")
+#                        diff         lwr         upr     p adj
+# Ladder-Ground    0.16345219  0.07450625  0.25239814 0.0001148
+# Platform-Ground  0.04963661 -0.03930933  0.13858256 0.3796059
+# Platform-Ladder -0.11381558 -0.20276153 -0.02486963 0.0086435
