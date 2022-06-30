@@ -91,7 +91,8 @@ shapiro.test(sqrt(hrr$pHRR[hrr$Activity=="Platform"])) # W = 0.92549, p-value = 
 ggboxplot(hrr, x = "Work.Period", y = "pHRR", color = "Activity",
        xlab = "Work Period", ylab = "% HRR",
        title = "Percent of heart rate reserve through the work shift",
-       add = c("mean_se", "dotplot"), palette = c("#1B9E77", "#D95F02", "#7570B3"))
+       add = c("mean_se", "dotplot"), palette = c("#1B9E77", "#D95F02", "#7570B3")) +
+  grids(linetype = "dashed", color = "grey")
 
 # Statistical tests
 anova(lm(pHRR ~ Activity + Work.Period, data = hrr))

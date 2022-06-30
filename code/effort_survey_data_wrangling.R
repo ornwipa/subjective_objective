@@ -59,11 +59,13 @@ shapiro.test(effort_overall$OmniRPEdiff) # W = 0.92331, p-value = 0.0003018
 ggboxplot(effort_overall, x = "Work.Period", y = "BorgRPE", color = "Activity",
        xlab = "Work Period", ylab = "Borg RPE",
        title = "Borg RPE through the work shift",
-       add = c("mean_se", "dotplot"), palette = c("#1B9E77", "#D95F02", "#7570B3"))
+       add = c("mean_se", "dotplot"), palette = c("#1B9E77", "#D95F02", "#7570B3")) +
+  grids(linetype = "dashed", color = "grey")
 ggboxplot(effort_overall, x = "Work.Period", y = "OmniRPE", color = "Activity",
        xlab = "Work Period", ylab = "Omni RPE",
        title = "Omni RPE through the work shift",
-       add = c("mean_se", "dotplot"), palette = c("#1B9E77", "#D95F02", "#7570B3"))
+       add = c("mean_se", "dotplot"), palette = c("#1B9E77", "#D95F02", "#7570B3")) +
+  grids(linetype = "dashed", color = "grey")
 
 # Statistical tests
 anova(lm(BorgRPE ~ Activity + Work.Period, data = effort_overall))
@@ -126,4 +128,5 @@ ggboxplot(effort_local, x = "Activity", y = "Value", color = "Side",
        xlab = "Harvesting Method", ylab = "Borg CR10 Difference", 
        order = c("Ground", "Ladder", "Platform"), 
        palette = c("#0072B2", "#D55E00"),
-       title = "Borg CR10 increases or decreases through the work shift")
+       title = "Borg CR10 increases or decreases through the work shift") +
+  grids(linetype = "dashed", color = "grey")
