@@ -1,6 +1,7 @@
 library(readr)
 library(tidyverse)
 library(ggpubr)
+library(dunn.test)
 
 # Import effort survey data
 effort <- read_csv("data/EA14_EffortSurveyResults_2014.csv", 
@@ -90,6 +91,86 @@ TukeyHSD(poshoc, "Activity")
 # Ladder-Ground   0.6250000 -0.3785087 1.628509 0.3008179
 # Platform-Ground 1.0416667  0.0381580 2.045175 0.0401574
 # Platform-Ladder 0.4166667 -0.5868420 1.420175 0.5824390
+
+# Revise post hoc nonparametric tests to Dunn's test of multiple comparison using rank sums
+attach(effort_overall)
+dunn.test(BorgRPEdiff,Activity)
+# Kruskal-Wallis rank sum test
+# 
+# data: BorgRPEdiff and Activity
+# Kruskal-Wallis chi-squared = 5.2793, df = 2, p-value = 0.07
+# 
+# Comparison of BorgRPEdiff by Activity                     
+# (No adjustment)                                
+# Col Mean-|
+# Row Mean |     Ground     Ladder
+# ---------+----------------------
+#   Ladder |   0.732040
+#          |     0.2321
+#          |
+# Platform |  -1.520122  -2.252163
+#          |     0.0642    0.0122*
+#   
+# alpha = 0.05
+# Reject Ho if p <= alpha/2
+dunn.test(BorgRPEdiff,Work.Period)
+# Kruskal-Wallis rank sum test
+# 
+# data: BorgRPEdiff and Work.Period
+# Kruskal-Wallis chi-squared = 16.7758, df = 2, p-value = 0
+# 
+# Comparison of BorgRPEdiff by Work.Period                    
+# (No adjustment)                                
+# Col Mean-|
+# Row Mean |   T1 after   T2 after
+# ---------+----------------------
+# T2 after |   0.633968
+#          |     0.2631
+#          |
+# T3 end o |  -3.187354  -3.821322
+#          |    0.0007*    0.0001*
+#   
+# alpha = 0.05
+# Reject Ho if p <= alpha/2
+dunn.test(OmniRPEdiff,Activity)
+# Kruskal-Wallis rank sum test
+# 
+# data: OmniRPEdiff and Activity
+# Kruskal-Wallis chi-squared = 4.7113, df = 2, p-value = 0.09
+# 
+# Comparison of OmniRPEdiff by Activity                     
+# (No adjustment)                                
+# Col Mean-|
+# Row Mean |     Ground     Ladder
+# ---------+----------------------
+#   Ladder |   0.270003
+#          |     0.3936
+#          |
+# Platform |  -1.730154  -2.000157
+#          |     0.0418    0.0227*
+#   
+#   alpha = 0.05
+# Reject Ho if p <= alpha/2
+dunn.test(OmniRPEdiff,Work.Period)
+# Kruskal-Wallis rank sum test
+# 
+# data: OmniRPEdiff and Work.Period
+# Kruskal-Wallis chi-squared = 21.8908, df = 2, p-value = 0
+# 
+# Comparison of OmniRPEdiff by Work.Period                    
+# (No adjustment)                                
+# Col Mean-|
+# Row Mean |   T1 after   T2 after
+# ---------+----------------------
+# T2 after |   0.142107
+#          |     0.4435
+#          |
+# T3 end o |  -3.978999  -4.121106
+#          |    0.0000*    0.0000*
+#   
+# alpha = 0.05
+# Reject Ho if p <= alpha/2
+detach(effort_overall)
 
 # Extract local discomfort at the beginning and end of work, subtract for difference
 effort_local_beg <- effort %>%
